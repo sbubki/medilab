@@ -1,0 +1,27 @@
+version: '3'
+services:
+  php:
+    image: yiisoftware/yii2-php:7.4-apache
+    volumes:
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      - ./:/app:delegated
+    ports:
+      - '8050:80'
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: pg_secret
+      POSTGRES_DB: medilab
+    ports:
+      - '8051:5432'
+  redis:
+    image: redis
+    ports:
+      - '8052:6379'
+  # uncomment to use mongodb
+  # mongo:
+  #  image: mongo
+  #  restart: always
+  #  environment:
+  #    MONGO_INITDB_ROOT_USERNAME: mg_user
+  #    MONGO_INITDB_ROOT_PASSWORD: mg_secret
